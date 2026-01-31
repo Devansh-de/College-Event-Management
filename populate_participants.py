@@ -22,6 +22,11 @@ def populate_participants():
         print("No events found. Please run populate_data.py first.")
         return
 
+    # Cleanup old generic student data
+    print("Cleaning up old generic student data...")
+    User.objects.filter(username__startswith='student', is_staff=False).delete()
+
+
     first_names = ["Aarav", "Vivaan", "Aditya", "Vihaan", "Arjun", "Sai", "Reyansh", "Ayaan", "Krishna", "Ishaan", "Diya", "Saanvi", "Ananya", "Aadhya", "Pari", "Saanvi", "Myra", "Riya", "Anvi", "Aardhya"]
     last_names = ["Sharma", "Verma", "Gupta", "Malhotra", "Bhatia", "Saxena", "Mehta", "Joshi", "Singh", "Kumar", "Patel", "Reddy", "Nair", "Iyer", "Rao"]
 
