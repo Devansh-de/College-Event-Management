@@ -8,3 +8,4 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 python create_admin.py
 python populate_data.py
+python populate_participants.py
