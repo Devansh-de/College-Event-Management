@@ -22,25 +22,30 @@ def populate_participants():
         print("No events found. Please run populate_data.py first.")
         return
 
+    first_names = ["Aarav", "Vivaan", "Aditya", "Vihaan", "Arjun", "Sai", "Reyansh", "Ayaan", "Krishna", "Ishaan", "Diya", "Saanvi", "Ananya", "Aadhya", "Pari", "Saanvi", "Myra", "Riya", "Anvi", "Aardhya"]
+    last_names = ["Sharma", "Verma", "Gupta", "Malhotra", "Bhatia", "Saxena", "Mehta", "Joshi", "Singh", "Kumar", "Patel", "Reddy", "Nair", "Iyer", "Rao"]
+
     # Create 15 dummy students
     for i in range(1, 16):
-        username = f"student{i}"
-        email = f"student{i}@example.com"
+        first_name = random.choice(first_names)
+        last_name = random.choice(last_names)
+        username = f"{first_name.lower()}.{last_name.lower()}{i}"
+        email = f"{username}@example.com"
         password = "password123"
         
         user, created = User.objects.get_or_create(username=username, defaults={
             'email': email,
             'role': 'STUDENT',
-            'first_name': f"Student",
-            'last_name': f"{i}",
-            'department': "Computer Science",
-            'year': 2
+            'first_name': first_name,
+            'last_name': last_name,
+            'department': random.choice(["Computer Science", "Electronics", "Mechanical", "Civil", "IT"]),
+            'year': random.randint(1, 4)
         })
         
         if created:
             user.set_password(password)
             user.save()
-            print(f"Created user: {username}")
+            print(f"Created user: {first_name} {last_name} ({username})")
         else:
             print(f"User exists: {username}")
 
