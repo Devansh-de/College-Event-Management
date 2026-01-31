@@ -82,6 +82,39 @@ def populate():
                 "venue": auditorium,
                 "is_published": True,
                 "budget": 2000.00
+            },
+            {
+                "title": "Science Fair 2026",
+                "description": "Showcasing student projects and innovations.",
+                "start_time": timezone.now() + timedelta(days=15, hours=9),
+                "end_time": timezone.now() + timedelta(days=15, hours=17),
+                "organizer": admin_user,
+                "status": Event.Status.UPCOMING,
+                "venue": Resource.objects.get(name="Seminar Hall A"),
+                "is_published": True,
+                "budget": 1500.00
+            },
+            {
+                "title": "Art Exhibition",
+                "description": "A display of student artwork and photography.",
+                "start_time": timezone.now() + timedelta(days=20, hours=10),
+                "end_time": timezone.now() + timedelta(days=20, hours=16),
+                "organizer": admin_user,
+                "status": Event.Status.UPCOMING,
+                "venue": Resource.objects.get(name="Main Auditorium"),
+                "is_published": True,
+                "budget": 800.00
+            },
+            {
+                "title": "Inter-College Cricket Match",
+                "description": "Annual cricket tournament finals.",
+                "start_time": timezone.now() + timedelta(days=25, hours=9),
+                "end_time": timezone.now() + timedelta(days=25, hours=18),
+                "organizer": admin_user,
+                "status": Event.Status.UPCOMING,
+                "venue": Resource.objects.get(name="Sports Ground"),
+                "is_published": True,
+                "budget": 300.00
             }
         ]
 
