@@ -65,19 +65,20 @@ def event_delete(request, pk):
 
 @login_required
 def participant_list(request):
-    participants = Participant.objects.all().select_related('user', 'event')
+    # Fetch unique users who are participants, prefetching their participation info
+    User = get_user_model()
+    participants = User.objects.filter(participant__isnull=False).distinct().prefetch_related('participant_set__event')
+    
     query = request.GET.get('q')
     if query:
         from django.db.models import Q
         participants = participants.filter(
-            Q(user__username__icontains=query) |
-            Q(user__first_name__icontains=query) |
-            Q(user__last_name__icontains=query) |
-            Q(user__email__icontains=query) |
-            Q(roll_no__icontains=query) |
-            Q(event__title__icontains=query)
+            Q(username__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(email__icontains=query)
         )
-    return render(request, 'events/participants.html', {'participants': participants})
+    return render(request, 'events/participants.html', {'unique_participants': participants, 'query': query})
 
 @login_required
 def event_register(request, pk):
