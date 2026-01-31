@@ -1,0 +1,61 @@
+<div class="w-64 bg-white border-r border-gray-200 flex flex-col">
+    <div class="p-6">
+        <h1 class="text-xl font-bold text-primary flex items-center">
+            <i class="fas fa-calendar-alt mr-2"></i>College Event Management
+        </h1>
+    </div>
+    <nav class="flex-1 px-4 space-y-2 py-4">
+        <a href="{% url 'dashboard' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if request.resolver_match.url_name == 'dashboard' %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-chart-line w-6"></i>
+            <span class="ml-3 font-medium">Dashboard</span>
+        </a>
+
+        <a href="{% url 'event_list' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if 'event' in request.path %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-calendar-day w-6"></i>
+            <span class="ml-3 font-medium">Events</span>
+        </a>
+
+        <a href="{% url 'club_list' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if 'communities' in request.path %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-users w-6"></i>
+            <span class="ml-3 font-medium">Communities</span>
+        </a>
+
+        {% if user.role == 'ADMIN' or user.role == 'ORGANIZER' %}
+        <a href="{% url 'resource_list' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if 'resource' in request.path %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-building w-6"></i>
+            <span class="ml-3 font-medium">Venues</span>
+        </a>
+        {% endif %}
+
+        <a href="{% url 'participant_list' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if 'participant' in request.path %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-users w-6"></i>
+            <span class="ml-3 font-medium">Participants</span>
+        </a>
+
+        <a href="{% url 'reports' %}"
+            class="flex items-center px-4 py-3 rounded-lg glass-sidebar-item {% if request.resolver_match.url_name == 'reports' %}bg-primary text-white shadow-md{% else %}text-textLight transition-all{% endif %}">
+            <i class="fas fa-file-alt w-6"></i>
+            <span class="ml-3 font-medium">Reports</span>
+        </a>
+    </nav>
+    <div class="p-4 border-t border-gray-200">
+        <a href="{% url 'profile' %}"
+            class="flex items-center px-4 py-2 text-sm font-medium text-textLight hover:text-primary">
+            <i class="fas fa-user-circle w-6"></i>
+            <span class="ml-3">Settings</span>
+        </a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit"
+                class="w-full flex items-center px-4 py-2 mt-2 text-sm font-medium text-red-500 hover:bg-red-50 rounded-lg">
+                <i class="fas fa-sign-out-alt w-6"></i>
+                <span class="ml-3">Logout</span>
+            </button>
+        </form>
+    </div>
+</div>

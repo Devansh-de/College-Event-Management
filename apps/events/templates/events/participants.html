@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Participants - EventHub{% endblock %}
+{% block page_title %}Participant Management{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header Actions -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="relative flex-1 max-w-md">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-textLight">
+                <i class="fas fa-search"></i>
+            </span>
+            <form method="GET" action="">
+                <input type="text" name="q" placeholder="Search participants..." value="{{ request.GET.q|default:'' }}"
+                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+            </form>
+        </div>
+    </div>
+
+    <!-- Participants Table -->
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Name
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Email
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Roll No
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Event
+                        Name</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">
+                        Attendance</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for p in participants %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-bold text-textDark">{{ p.user.get_full_name|default:p.user.username }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textLight">
+                        {{ p.user.email }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textDark font-medium">
+                        {{ p.roll_no|default:"N/A" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textDark">
+                        {{ p.event.title }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if p.attendance_status %}bg-green-100 text-green-800{% else %}bg-orange-100 text-orange-800{% endif %}">
+                            {{ p.attendance_status|yesno:"Present,Absent" }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-10 text-center text-textLight text-sm">
+                        No participants registered yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

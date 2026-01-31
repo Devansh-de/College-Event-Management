@@ -1,0 +1,9 @@
+<div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+    <div class="p-3 rounded-lg {{ bg_color|default:'bg-indigo-50' }} text-{{ color|default:'primary' }}">
+        <i class="fas {{ icon }} text-2xl"></i>
+    </div>
+    <div class="ml-4">
+        <p class="text-sm font-medium text-textLight">{{ label }}</p>
+        <p class="text-2xl font-bold text-textDark">{{ value }}</p>
+    </div>
+</div>

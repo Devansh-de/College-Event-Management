@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ resource.name }} - EventHub{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <!-- Header -->
+        <div class="h-48 bg-indigo-50 flex items-center justify-center text-primary relative">
+            <i
+                class="fas {% if resource.resource_type == 'ROOM' %}fa-door-open{% elif resource.resource_type == 'LAB' %}fa-flask{% else %}fa-tools{% endif %} text-6xl"></i>
+            {% if user.role == 'ADMIN' %}
+            <a href="{% url 'resource_update' resource.pk %}"
+                class="absolute top-4 right-4 bg-white p-2 rounded-lg shadow-sm text-gray-400 hover:text-primary transition-colors">
+                <i class="fas fa-edit"></i>
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-textDark mb-2">{{ resource.name }}</h1>
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-primary uppercase tracking-wide">
+                        {{ resource.get_resource_type_display }}
+                    </span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span
+                        class="flex items-center {% if resource.availability %}text-green-600{% else %}text-red-600{% endif %} font-bold">
+                        <span
+                            class="h-3 w-3 rounded-full {% if resource.availability %}bg-green-600{% else %}bg-red-600{% endif %} mr-2"></span>
+                        {{ resource.availability|yesno:"Available,Unavailable" }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="prose max-w-none text-textDark mb-8">
+                <h3 class="text-lg font-semibold mb-2">Description</h3>
+                <p>{{ resource.description }}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 rounded-xl">
+                <div class="flex items-center">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-white flex items-center justify-center text-primary shadow-sm mr-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-textLight">Capacity</p>
+                        <p class="text-lg font-bold text-textDark">{{ resource.capacity }} People</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-end">
+                <a href="{% url 'resource_list' %}"
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-textDark bg-white hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Venues
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

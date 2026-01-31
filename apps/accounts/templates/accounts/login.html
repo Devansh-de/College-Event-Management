@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - EventHub{% endblock %}
+
+{% block content %}
+{% if not is_auth_page %}
+{% with is_auth_page=True %}
+<!-- Internal re-render with auth layout if needed, but easier to just define it here -->
+{% endwith %}
+{% endif %}
+
+<div class="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg border border-gray-100">
+        <div>
+            <div class="flex justify-center">
+                <i class="fas fa-calendar-alt text-primary text-5xl"></i>
+            </div>
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-textDark">
+                Welcome Back
+            </h2>
+            <p class="mt-2 text-center text-sm text-textLight">
+                Sign in to your account to continue
+            </p>
+        </div>
+        <form class="mt-8 space-y-6" method="POST">
+            {% csrf_token %}
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div class="mb-4">
+                    <label for="username" class="block text-sm font-medium text-textDark mb-1">Username</label>
+                    <input id="username" name="username" type="text" required
+                        class="appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-textDark focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                        placeholder="Enter your username">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-textDark mb-1">Password</label>
+                    <input id="password" name="password" type="password" required
+                        class="appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-textDark focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                        placeholder="Enter your password">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input id="remember-me" name="remember-me" type="checkbox"
+                        class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                    <label for="remember-me" class="ml-2 block text-sm text-textDark">
+                        Remember me
+                    </label>
+                </div>
+
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-primary hover:text-indigo-500">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit"
+                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <i class="fas fa-sign-in-alt text-indigo-300 group-hover:text-indigo-200"></i>
+                    </span>
+                    Sign in
+                </button>
+            </div>
+        </form>
+        <div class="text-center mt-4">
+            <p class="text-sm text-textLight">
+                Don't have an account?
+                <a href="{% url 'register' %}" class="font-medium text-primary hover:text-indigo-500">
+                    Sign up
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Ensure sidebar/navbar don't show on this page -->
+<style>
+    nav,
+    aside,
+    header {
+        display: none !important;
+    }
+</style>
+{% endblock %}

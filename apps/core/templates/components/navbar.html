@@ -1,0 +1,15 @@
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+        <h2 class="text-xl font-semibold text-textDark">College Event Management</h2>
+    </div>
+    <a href="{% url 'profile' %}"
+        class="flex items-center space-x-4 hover:bg-gray-50 p-2 rounded-lg transition-colors cursor-pointer">
+        <div class="text-right hidden md:block">
+            <p class="text-sm font-semibold text-textDark">{{ user.username }}</p>
+            <p class="text-xs text-textLight capitalize">{{ user.role|lower }}</p>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-primary font-bold">
+            {{ user.username|first|upper }}
+        </div>
+    </a>
+</header>

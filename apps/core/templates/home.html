@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to EventHub{% endblock %}
+
+{% block content %}
+<div class="relative overflow-hidden bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+            <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                <div class="sm:text-center lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-textDark sm:text-5xl md:text-6xl">
+                        <span class="block xl:inline">Unified Event</span>
+                        <span class="block text-primary xl:inline">Experience</span>
+                    </h1>
+                    <p
+                        class="mt-3 text-base text-textLight sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        Manage events, register participants, and book venues all in one beautiful platform.
+                        Simplified coordination for organizers and students alike.
+                    </p>
+                    <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                        {% if user.is_authenticated %}
+                        <div class="rounded-md shadow">
+                            <a href="{% url 'dashboard' %}"
+                                class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                Go to Dashboard
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="rounded-md shadow">
+                            <a href="{% url 'register' %}"
+                                class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                Get Started
+                            </a>
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-3">
+                            <a href="{% url 'login' %}"
+                                class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-primary bg-indigo-50 hover:bg-indigo-100 md:py-4 md:text-lg md:px-10">
+                                Login
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center bg-gray-50 p-12">
+        <i class="fas fa-calendar-check text-[200px] text-indigo-100"></i>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-12 bg-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+            <h2 class="text-base text-primary font-semibold tracking-wide uppercase">Features</h2>
+            <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-textDark sm:text-4xl">
+                Everything you need
+            </p>
+        </div>
+
+        <div class="mt-10">
+            <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <dt>
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <p class="ml-16 text-lg leading-6 font-bold text-textDark">Event Management</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-sm text-textLight">
+                        Create, edit, and manage events with ease. Robust approval flow for admins.
+                    </dd>
+                </div>
+
+                <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <dt>
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <p class="ml-16 text-lg leading-6 font-bold text-textDark">Participant Tracking</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-sm text-textLight">
+                        Track registrations and attendance in real-time. Simplified for organizers.
+                    </dd>
+                </div>
+
+                <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <dt>
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <p class="ml-16 text-lg leading-6 font-bold text-textDark">Resource Control</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-sm text-textLight">
+                        Manage venue availability and capacity seamlessly across your campus.
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+
+{% if not user.is_authenticated %}
+<style>
+    /* Ensure no sidebar/navbar on landing page for full impact */
+    nav,
+    aside,
+    header {
+        display: none !important;
+    }
+</style>
+{% endif %}
+{% endblock %}

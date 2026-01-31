@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Notification Settings - EventHub{% endblock %}
+{% block page_title %}Notification Settings{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-textDark mb-6">Manage Notifications</h3>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="email_notifications" name="email_notifications" type="checkbox"
+                                class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded" {% if user.profile.email_notifications %}checked{% endif %}>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="email_notifications" class="font-medium text-textDark">Email
+                                Notifications</label>
+                            <p class="text-textLight">Receive emails about upcoming events and announcements.</p>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for SMS notifications if we add it later -->
+                    <div class="item-start opacity-50 cursor-not-allowed hidden">
+                        <div class="flex items-center h-5">
+                            <input id="sms_notifications" name="sms_notifications" type="checkbox" disabled
+                                class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="sms_notifications" class="font-medium text-textDark">SMS Notifications (Coming
+                                Soon)</label>
+                            <p class="text-textLight">Receive text messages for urgent updates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex items-center justify-between">
+                    <a href="{% url 'profile' %}" class="text-sm font-medium text-textLight hover:text-textDark">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Save Preferences
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

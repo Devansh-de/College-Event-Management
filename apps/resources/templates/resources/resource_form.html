@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - EventHub{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full max-w-2xl">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8 space-y-6">
+        <h2 class="text-2xl font-bold text-textDark">{{ title }}</h2>
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-textDark mb-1">
+                    {{ field.label }}
+                    {% if field.field.required %}*{% endif %}
+                </label>
+                {% if field.field.widget.input_type == 'checkbox' %}
+                <div class="flex items-center">
+                    {{ field }}
+                    <span class="ml-2 text-sm text-textLight">{{ field.help_text }}</span>
+                </div>
+                {% else %}
+                <div class="relative rounded-md shadow-sm">
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <i class="fas fa-exclamation-circle text-red-500"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% if field.errors %}
+                <p class="mt-2 text-sm text-red-600">{{ field.errors|striptags }}</p>
+                {% endif %}
+                {% if field.help_text and field.field.widget.input_type != 'checkbox' %}
+                <p class="mt-2 text-sm text-textLight">{{ field.help_text }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="flex justify-end pt-6 border-t border-gray-100 space-x-3">
+                <a href="{% url 'resource_list' %}"
+                    class="px-4 py-2 border border-gray-300 rounded-lg text-textDark hover:bg-gray-50 transition-colors">
+                    Cancel
+                </a>
+                <button type="submit"
+                    class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+                    Save Resource
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

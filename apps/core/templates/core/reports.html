@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports - EventHub{% endblock %}
+{% block page_title %}Event Reports{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Filters & Export -->
+    <div
+        class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <form method="GET" action="" class="flex items-center gap-4 flex-1">
+            <select name="status"
+                class="px-3 py-2 border border-gray-300 rounded-lg text-sm text-textDark focus:ring-primary focus:border-primary">
+                <option value="all">All Statuses</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+            </select>
+            <input type="date" name="date" value="{{ request.GET.date|default:'' }}"
+                class="px-3 py-2 border border-gray-300 rounded-lg text-sm text-textDark focus:ring-primary focus:border-primary">
+            <button type="submit"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 transition-colors">
+                <i class="fas fa-filter mr-2"></i> Apply Filters
+            </button>
+        </form>
+        <div class="flex items-center gap-2">
+            <a href="{% url 'export_reports_csv' %}"
+                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-textDark bg-white hover:bg-gray-50 transition-colors">
+                <i class="fas fa-file-csv mr-2 text-green-600"></i> Export CSV
+            </a>
+            <a href="{% url 'export_reports_excel' %}"
+                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-textDark bg-white hover:bg-gray-50 transition-colors">
+                <i class="fas fa-file-excel mr-2 text-emerald-600"></i> Export Excel
+            </a>
+        </div>
+    </div>
+
+    <!-- Report Table -->
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-lg font-bold text-textDark">Detailed Event Summary</h3>
+        </div>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Event
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Date
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">
+                        Participants</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Revenue
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-textLight uppercase tracking-wider">Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for event in events %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-textDark">
+                        {{ event.title }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textLight">
+                        {{ event.start_time|date:"M d, Y" }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textDark">
+                        {{ event.participants.count }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-textDark">
+                        $0.00
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                            class="px-2 py-1 text-[10px] font-bold rounded-full {% if event.status == 'UPCOMING' %}bg-green-100 text-green-700{% else %}bg-gray-100 text-gray-700{% endif %}">
+                            {{ event.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-10 text-center text-textLight text-sm">
+                        No report data available.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
