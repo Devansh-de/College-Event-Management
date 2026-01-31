@@ -27,10 +27,10 @@ def populate():
     
     # 1. Create Resources (Venues)
     resources_data = [
-        {"name": "Main Auditorium", "type": Resource.Type.ROOM, "capacity": 500, "description": "Large auditorium for major events."},
-        {"name": "Seminar Hall A", "type": Resource.Type.ROOM, "capacity": 100, "description": "AV-equipped seminar hall."},
-        {"name": "Computer Lab 1", "type": Resource.Type.LAB, "capacity": 50, "description": "High-performance computing lab."},
-        {"name": "Sports Ground", "type": Resource.Type.ROOM, "capacity": 1000, "description": "Outdoor sports field."},
+        {"name": "Main Auditorium", "resource_type": Resource.Type.ROOM, "capacity": 500, "description": "Large auditorium for major events."},
+        {"name": "Seminar Hall A", "resource_type": Resource.Type.ROOM, "capacity": 100, "description": "AV-equipped seminar hall."},
+        {"name": "Computer Lab 1", "resource_type": Resource.Type.LAB, "capacity": 50, "description": "High-performance computing lab."},
+        {"name": "Sports Ground", "resource_type": Resource.Type.ROOM, "capacity": 1000, "description": "Outdoor sports field."},
     ]
 
     for r_data in resources_data:
