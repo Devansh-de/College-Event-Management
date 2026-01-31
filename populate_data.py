@@ -18,6 +18,14 @@ from django.contrib.auth import get_user_model
 def populate():
     print("Populating data...")
     
+    
+    # Clean up existing data to prevent duplicates
+    print("Cleaning up existing data (Events, Clubs, Resources)...")
+    Event.objects.all().delete()
+    Club.objects.all().delete()
+    Resource.objects.all().delete()
+    print("Cleanup complete.")
+
     User = get_user_model()
     # Get or create an admin user for organizer
     admin_user = User.objects.filter(is_superuser=True).first()

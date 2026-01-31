@@ -24,7 +24,9 @@ def populate_participants():
 
     # Cleanup old generic student data
     print("Cleaning up old generic student data...")
-    User.objects.filter(username__startswith='student', is_staff=False).delete()
+    # Cleanup old student data (Strict: Delete all non-staff users)
+    print("Cleaning up all non-staff users...")
+    User.objects.filter(is_staff=False, is_superuser=False).delete()
 
 
     first_names = ["Aarav", "Vivaan", "Aditya", "Vihaan", "Arjun", "Sai", "Reyansh", "Ayaan", "Krishna", "Ishaan", "Diya", "Saanvi", "Ananya", "Aadhya", "Pari", "Saanvi", "Myra", "Riya", "Anvi", "Aardhya"]
