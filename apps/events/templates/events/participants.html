@@ -53,11 +53,11 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-textDark font-medium">
                         <!-- Showing first found roll number or generic -->
-                        {{ p_user.participant_set.first.roll_no|default:"N/A" }}
+                        {{ p_user.event_registrations.first.roll_no|default:"N/A" }}
                     </td>
                     <td class="px-6 py-4 text-sm text-textDark">
                         <div class="flex flex-wrap gap-1">
-                            {% for participation in p_user.participant_set.all %}
+                            {% for participation in p_user.event_registrations.all %}
                             <a href="{% url 'event_detail' participation.event.pk %}"
                                 class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 hover:bg-indigo-200">
                                 {{ participation.event.title }}

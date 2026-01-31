@@ -67,7 +67,7 @@ def event_delete(request, pk):
 def participant_list(request):
     # Fetch unique users who are participants, prefetching their participation info
     User = get_user_model()
-    participants = User.objects.filter(participant__isnull=False).distinct().prefetch_related('participant_set__event')
+    participants = User.objects.filter(event_registrations__isnull=False).distinct().prefetch_related('event_registrations__event')
     
     query = request.GET.get('q')
     if query:
